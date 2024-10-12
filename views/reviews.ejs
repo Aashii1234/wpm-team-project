@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/styles1.css">
+    <title>User Reviews</title>
+</head>
+<body>
+    <header>
+        <h1>User Reviews</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/rent">Rent</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Submit a Review</h2>
+        <form action="/submit-review" method="POST">
+            <div>
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div>
+                <input type="number" name="rating" min="1" max="5" placeholder="Rating (1-5)" required>
+            </div>
+            <div>
+                <textarea name="comment" placeholder="Your Review" required></textarea>
+            </div>
+            <button type="submit">Submit Review</button>
+        </form>
+
+        <h2>Previous Reviews</h2>
+        <ul>
+            <% if (reviews.length === 0) { %>
+                <li>No reviews available. Be the first to review!</li>
+            <% } else { %>
+                <% reviews.forEach(review => { %>
+                    <li>
+                        <h3><%= review.name %> - Rating: <%= review.rating %></h3>
+                        <p><%= review.comment %></p>
+                        <p><small>Submitted on: <%= review.date.toDateString() %></small></p>
+                    </li>
+                <% }) %>
+            <% } %>
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kinnu Car Rentals | Car Rental Platform</p>
+    </footer>
+</body>
+</html>

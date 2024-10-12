@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Listings</title>
+    <link rel="stylesheet" href="/css/styles1.css">
+</head>
+<body>
+    <header>
+        <h1>Available Vehicles</h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/rent">Rent</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <h1>Vehicle Listings</h1>
+    <a href="/rent/add" class="add-vehicle-button">Add Vehicle</a>
+    <ul>
+        <% if (cars.length === 0) { %>
+            <li>
+                <img src="/images/default.png" alt="Placeholder" />
+                <p>No vehicles available. Please add a vehicle.</p>
+            </li>
+        <% } else { %>
+            <% cars.forEach(vehicle => { %>
+                <li>
+                    <div class="vehicle-card">
+                        <h3><%= vehicle.title %></h3>
+                        <p><strong>Name:</strong> <%= vehicle.name %></p>
+                        <p><strong>Price Per Day:</strong> <%= vehicle.price %></p>
+                        <p><strong>Description:</strong> <%= vehicle.description %></p>
+                        <p><strong>Available:</strong> <%= vehicle.available ? 'Yes' : 'No' %></p>
+                        <img src="<%= vehicle.image || '/images/default.png' %>" alt="<%= vehicle.title %> Image" />
+                        
+                        <form action="/rent/process" method="POST">
+                            <input type="hidden" name="vehicleName" value="<%= vehicle.name %>">
+                            <input type="hidden" name="vehiclePrice" value="<%= vehicle.price %>">
+                            <input type="hidden" name="vehicleDescription" value="<%= vehicle.description %>">
+                            <button type="submit" class="rent-button">Rent</button>
+                        </form>
+                        
+                    </div>
+                </li>
+            <% }) %>
+        <% } %>
+    </ul>
+    
+    
+
+    <footer>
+        <p>&copy; 2024 Kinnu Car Rentals | Car Rental Platform</p>
+    </footer>
+</body>
+</html>
